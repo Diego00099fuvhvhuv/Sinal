@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sinais Lightning Storm Linha Sequencial</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0c29;
+      color: #00ffe7;
+      overflow: hidden;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    button {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      background: #00ffe7;
+      color: #000;
+      box-shadow: 0 0 15px #00ffe7;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #00c6b1;
+      box-shadow: 0 0 30px #00ffe7;
+    }
+    #sinal {
+      margin-top: 20px;
+      font-size: 24px;
+      background: rgba(0, 255, 231, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffe7;
+      white-space: pre-line;
+    }
+    #historico {
+      max-width: 600px;
+      margin: 30px auto 0;
+      text-align: left;
+      background: rgba(0, 255, 231, 0.05);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ffe7;
+      color: #0ff;
+      font-size: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .linha-historico {
+      padding: 6px 0;
+      border-bottom: 1px solid #004d4d;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚡ Gerador de Sinais Lightning Storm - Linhas Sequenciais</h1>
+  <button onclick="gerarSinal()">Gerar Sinal</button>
+  <button onclick="copiarSinal()">Copiar Sinal</button>
+  <div id="sinal">Clique em "Gerar Sinal" para começar</div>
+  <div id="historico"></div>
+
+  <script>
+    const linhas = {
+      1: [1, 2, 3, 4, 5],
+      2: [6, 7, 8, 9, 10],
+      3: [11, 12, 13, 14, 15],
+      4: [16, 17, 18, 19, 20]
+    };
+
+    let sinalAtual = '';
+
+    function gerarSinal() {
+      const linhaNum = Math.floor(Math.random() * 4) + 1;
+      const numerosLinha = linhas[linhaNum];
+      const chance = Math.floor(Math.random() * 19) + 80; // 80 a 98%
+      const hora = new Date().toLocaleTimeString('pt-BR', { hour12: false });
+
+      sinalAtual = `Sinal: ${numerosLinha.join(' ')}\nHora: ${hora}\nChance: ${chance}%`;
+
+      document.getElementById('sinal').innerText = sinalAtual;
+
+      const histDiv = document.getElementById('historico');
+      const novoItem = document.createElement('div');
+      novoItem.className = 'linha-historico';
+      novoItem.innerText = sinalAtual;
+      histDiv.prepend(novoItem);
+    }
+
+    function copiarSinal() {
+      if (!sinalAtual) return alert('Gere um sinal primeiro!');
+      navigator.clipboard.writeText(sinalAtual)
+        .then(() => alert('Sinal copiado!'))
+        .catch(() => alert('Erro ao copiar sinal.'));
+    }
+  </script>
+</body>
+</html>
